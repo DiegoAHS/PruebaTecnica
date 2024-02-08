@@ -1,0 +1,51 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: obtener_todos_productos
+          uri: lb://GESTIONPRODUCTOS
+          predicates:
+            - Path=/api/productos
+            - Method=GET
+          filters:
+            - StripPrefix=1  
+
+        - id: obtener_producto_por_id
+          uri: lb://GESTIONPRODUCTOS
+          predicates:
+            - Path=/api/productos/**
+            - Method=GET
+          filters:
+            - StripPrefix=1
+
+        - id: crear_producto
+          uri: lb://GESTIONPRODUCTOS
+          predicates:
+            - Path=/api/productos
+            - Method=POST
+          filters:
+            - StripPrefix=1
+
+        - id: actualizar_producto
+          uri: lb://GESTIONPRODUCTOS
+          predicates:
+            - Path=/api/productos/**
+            - Method=PUT
+          filters:
+            - StripPrefix=1
+        - id: eliminar_producto
+          uri: lb://GESTIONPRODUCTOS
+          predicates:
+            - Path=/api/productos/**
+            - Method=DELETE
+          filters:
+            - StripPrefix=1
+            
+      
+      
+      
+      
+        
